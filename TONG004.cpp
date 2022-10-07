@@ -44,21 +44,32 @@ typedef vector<string> vs;
 const double pi=3.14159265358979323846;
 const int MOD = 1000000007;
 int tt;
-vi a2,a3,a4,a5,a6,a7,a8,a9,a10;
+ll power(ll a, ll n)
+{
+    ll ans = 1;
+    while (n)
+    {
+        if (n & 1)
+            ans = (ans * a) % MOD;
+        a = (a * a) % MOD;
+        n >>= 1;
+    }
+    return ans;
+}
+ll szn(ll n, ll m, ll x)
+{
+    ll ans=power(x,m);
+    if(ans==n) return 1;
+    if(ans>n) return 0;
+    ll a1=szn(n-ans,m,x+1);
+    ll a2=szn(n,m,x+1);
+    return a1+a2;
+}
+
 void solve() 
 {
-    forn(i,32) a2.pb(i*i);
-    forn(i,9)  a3.pb(pow(i,3));
-    forn(i,6)  a4.pb(pow(i,4));
-    forn(i,5)  a5.pb(pow(i,5));
-    forn(i,3)  a6.pb(pow(i,6));
-    forn(i,2)  a7.pb(pow(i,7));
-    forn(i,2)  a8.pb(pow(i,8));
-    forn(i,2)  a9.pb(pow(i,9));
-    forn(i,2)  a10.pb(pow(i,10));
-    
-
-
+    ll n,m; cin >> n >> m;
+    cout << szn(n,m,1) << endl;
 }
 int main() 
 {

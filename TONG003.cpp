@@ -38,57 +38,48 @@ typedef vector<string> vs;
 #define sz(s) ((int)(s.size()))
 #define UM uno\nrdered_map
 #define US uno\nrdered_set
-#define forn(i, n) for (int i = 1; i <= int(n); i++)
+#define forn(i, n) for (int i = 0; i < int(n); i++)
 #define fora(i, n) for(auto i:n)
 #define Len 1000005
 const double pi=3.14159265358979323846;
 const int MOD = 1000000007;
-int tt;
-map<long, long> F;
-ll a[Len];
-long f(long n) 
-{
-	if (F.count(n)) return F[n];
-	long k=n/2;
-	if (n%2==0) { // n=2*k
-		return F[n] = (f(k)*f(k) + f(k-1)*f(k-1)) % MOD;
-	} else { // n=2*k+1
-		return F[n] = (f(k)*f(k+1) + f(k-1)*f(k)) % MOD;
-	}
-}
-ll power(ll a, ll n)
-{
-    ll ans = 1;
-    while (n)
-    {
-        if (n & 1)
-            ans = (ans * a) % MOD;
-        a = (a * a) % MOD;
-        n >>= 1;
-    }
-    return ans;
-}
+ll tt;
+ll a[200][200], dp[200][200];
 void solve() 
 {
-    ll n; cin >> n;
-    memset(a, 0, sizeof(a));
-    a[0]=1;
+    ll n,m,ans=-MOD;
+    cin >> n >> m;
+    for(int i=1; i<=m; i++)
+        dp[0][i] = dp[n + 1][i] = -MOD;
     for(int i=1; i<=n; i++)
     {
-        for(int j=i; j<=n; j++)
+        for(int j=1; j<=m; j++)
         {
-            a[j] = (a[j] + a[j-i]) % MOD;
-            // cout << a[j] << " ";
+            cin >> a[i][j];
         }
     }
-    cout << a[n]%MOD-1 << endl;
-
-    
+    if (m == 1 && n == 1)
+    {
+        cout << a[1][1] << '\n';
+        return;
+    }
+    for(int j=1; j<=m; j++)
+    {
+        for(int i=1; i<=n; i++)
+        {
+            dp[i][j] = a[i][j] + max(dp[i - 1][j - 1], max(dp[i][j - 1], dp[i + 1][j - 1]));
+        }
+    }
+    for(int i=1; i<=n; i++)
+    {
+        ans = max(ans, dp[i][m]);
+    }
+    cout << ans << '\n';
 }
 int main() 
 {
     FAST_IO;
     // freopen("time.in", "r", stdin); freopen("time.out", "w", stdout);
-    cin >> tt; for (int i = 1; i <= tt; i++) {solve();}
+    cin >> tt; while(tt--) {solve();}
     // solve();
 }

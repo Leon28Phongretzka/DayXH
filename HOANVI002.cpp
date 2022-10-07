@@ -40,22 +40,12 @@ typedef vector<string> vs;
 #define US uno\nrdered_set
 #define forn(i, n) for (int i = 1; i <= int(n); i++)
 #define fora(i, n) for(auto i:n)
-#define Len 1000005
+#define Len 100005
 const double pi=3.14159265358979323846;
 const int MOD = 1000000007;
 int tt;
-map<long, long> F;
-ll a[Len];
-long f(long n) 
-{
-	if (F.count(n)) return F[n];
-	long k=n/2;
-	if (n%2==0) { // n=2*k
-		return F[n] = (f(k)*f(k) + f(k-1)*f(k-1)) % MOD;
-	} else { // n=2*k+1
-		return F[n] = (f(k)*f(k+1) + f(k-1)*f(k)) % MOD;
-	}
-}
+int a[Len];
+bool chk[Len];
 ll power(ll a, ll n)
 {
     ll ans = 1;
@@ -70,24 +60,41 @@ ll power(ll a, ll n)
 }
 void solve() 
 {
-    ll n; cin >> n;
-    memset(a, 0, sizeof(a));
-    a[0]=1;
-    for(int i=1; i<=n; i++)
+    ll n,k; cin >> n >> k;
+    memset(chk,false,sizeof(chk));
+    forn(i,n) a[i]=i;
+    int flag=1;
+    while(true)
     {
-        for(int j=i; j<=n; j++)
+        // if chk[flag]==false and distance isn't k
+        // swap a[flag] and a[flag+k]
+        // else check chk[flag] is true or not
+        // if true then flag++
+        // else break
+        // if flag==n then break
+        // else continue
+        if(chk[flag]==false&&flag+k<=n)
         {
-            a[j] = (a[j] + a[j-i]) % MOD;
-            // cout << a[j] << " ";
+            swap(a[flag],a[flag+k]);
+            chk[flag]=chk[flag+k]=true;
+        }
+        else
+        {
+            if(chk[flag]) flag++;
+            else break;
         }
     }
-    cout << a[n]%MOD-1 << endl;
-
-    
+    if(count(chk+1,chk+n+1,false)) cout << -1 << endl;
+    else
+    {
+        forn(i,n) cout << a[i] << " ";
+        cout << endl;
+    }
 }
 int main() 
 {
     FAST_IO;
+    // Fibo();
     // freopen("time.in", "r", stdin); freopen("time.out", "w", stdout);
     cin >> tt; for (int i = 1; i <= tt; i++) {solve();}
     // solve();

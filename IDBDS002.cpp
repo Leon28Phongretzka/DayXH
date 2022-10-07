@@ -38,57 +38,44 @@ typedef vector<string> vs;
 #define sz(s) ((int)(s.size()))
 #define UM uno\nrdered_map
 #define US uno\nrdered_set
-#define forn(i, n) for (int i = 1; i <= int(n); i++)
+#define forn(i, n) for (int i = 0; i < int(n); i++)
 #define fora(i, n) for(auto i:n)
 #define Len 1000005
 const double pi=3.14159265358979323846;
 const int MOD = 1000000007;
-int tt;
-map<long, long> F;
-ll a[Len];
-long f(long n) 
+ll tt;
+ll cal(ll n, ll k)
 {
-	if (F.count(n)) return F[n];
-	long k=n/2;
-	if (n%2==0) { // n=2*k
-		return F[n] = (f(k)*f(k) + f(k-1)*f(k-1)) % MOD;
-	} else { // n=2*k+1
-		return F[n] = (f(k)*f(k+1) + f(k-1)*f(k)) % MOD;
-	}
-}
-ll power(ll a, ll n)
-{
-    ll ans = 1;
-    while (n)
+    ll a[k + 1][n + 1];
+    for(ll i=0; i<=n; i++)
     {
-        if (n & 1)
-            ans = (ans * a) % MOD;
-        a = (a * a) % MOD;
-        n >>= 1;
+        a[1][i]=1;
     }
-    return ans;
+    ll sum;
+    for(ll i=2; i<=k; i++)
+    {
+        for(ll j=0; j<=n; j++)
+        {
+            sum=0;
+            for(ll k=0; k<=j; k++)
+            {
+                sum+=a[i-1][k];
+            }
+            a[i][j]=sum;
+        }
+    }
+    return a[k][n];
 }
 void solve() 
 {
-    ll n; cin >> n;
-    memset(a, 0, sizeof(a));
-    a[0]=1;
-    for(int i=1; i<=n; i++)
-    {
-        for(int j=i; j<=n; j++)
-        {
-            a[j] = (a[j] + a[j-i]) % MOD;
-            // cout << a[j] << " ";
-        }
-    }
-    cout << a[n]%MOD-1 << endl;
-
+    ll n,k; cin >> n >> k;
+    cout << cal(n, k) << endl;
     
 }
 int main() 
 {
     FAST_IO;
     // freopen("time.in", "r", stdin); freopen("time.out", "w", stdout);
-    cin >> tt; for (int i = 1; i <= tt; i++) {solve();}
+    cin >> tt; while(tt--) {solve();}
     // solve();
 }

@@ -2,7 +2,8 @@
 // problem using naive approach.
 #include <bits/stdc++.h>
 using namespace std;
-#define V 6
+#define N 1000
+#define V 5
 // implementation of traveling Salesman Problem
 int travllingSalesmanProblem(int graph[][V], int s)
 {
@@ -39,14 +40,15 @@ int travllingSalesmanProblem(int graph[][V], int s)
 // Driver Code
 int main()
 {
-	// matrix representation of graph
-	int graph[][V] = { 
-        { 0, 31, 15, 23, 10, 17 },
-		{16,  0, 24, 7, 12, 12},
-        {34, 3,0, 25, 54, 25},
-        {15,20,33,0,50,40},
-        {16,10,32,3,0,23},
-        {18,20,13,28,21,0}};
+	int graph[V][V];
+	// implement graph with V*V size
+	for(int i=0;i<V;i++)
+	{
+	    for(int j=0;j<V;j++)
+		{
+	        cin>>graph[i][j];
+	    }
+	}
 	int s = 0;
 	cout << travllingSalesmanProblem(graph, s) << endl;
 	return 0;
