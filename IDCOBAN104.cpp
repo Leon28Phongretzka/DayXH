@@ -71,33 +71,36 @@ string add(string a, string b)
     }
     return res;
 }
-string mult(string a, string b)
+string check_str_3(string s)
 {
+    int n=s.size();
     string res="";
-    int n=a.size();
-    int m=b.size();
-    //create res is the answer
-    res.assign(n+m,'0');
-    for(int i=n-1; i>=0;i--)
+    for(int i=0; i<n; i++)
     {
-            for(int j=m-1; j>=0; j--)
-            {
-                int mul=(a[i]-'0')*(b[j]-'0');
-                int p1=i+j, p2=i+j+1;
-                int sum=mul+res[p2]-'0';
-                res[p2]=sum%10+'0';
-                res[p1]+=sum/10;
-            }
+        if (s[i] == '5')
+        {
+            res += "3";
+        }
+        else res+=s[i];
     }
-    while (res[0] == '0' && res.length() > 1)
+    return res;
+}
+string check_str_5(string s)
+{
+    int n=s.size();
+    string res="";
+    for(int i=0; i<n; i++)
     {
-            res.erase(0, 1);
+        if (s[i] == '3')
+        {
+            res += "5";
+        }
+        else res+=s[i];
     }
     return res;
 }
 void solve() 
 {
-    freopen("bignumber.in", "r", stdin); freopen("bignumber.out", "w", stdout);
     int t; cin >> t;
     cin.ignore();
     while(t--)
@@ -110,10 +113,9 @@ void solve()
         {
             v.push_back(s);
         }
-        //cout << v[1] << endl;
-        if(v[1]=="+") cout << add(v[0],v[2]);
-        else cout << mult(v[0],v[2]);
-        cout << endl;
+        // cout << v[0] << " " << v[1] << endl;
+        cout << add(check_str_3(v[0]), check_str_3(v[1])) << " ";
+        cout << add(check_str_5(v[0]), check_str_5(v[1])) << endl;
     }
 }
 int main() 

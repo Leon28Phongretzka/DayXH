@@ -38,41 +38,46 @@ typedef vector<string> vs;
 #define sz(s) ((int)(s.size()))
 #define UM uno\nrdered_map
 #define US uno\nrdered_set
-#define forn(i, n) for (int i = 1; i < int(n); i++)
+#define forn(i, n) for (int i = 1; i <= int(n); i++)
 #define fora(i, n) for(auto i:n)
 #define Len 1000005
 const double pi=3.14159265358979323846;
 const int MOD = 1000000007;
-ll tt;
-void Travelling_Salesman_Problem()
+int tt;
+ll power(ll a, ll n)
 {
-    
-
+    ll ans = 1;
+    while (n)
+    {
+        if (n & 1)
+            ans = (ans * a);
+        a = (a * a);
+        n >>= 1;
+    }
+    return ans;
+}
+ll szn(ll n, ll m, ll x)
+{
+    // Recursion to find number of presentative n to sum of perfect number
+    ll ans = power(x, m);
+    if (ans == n)
+        return 1;
+    if (ans > n)
+        return 0;
+    // ll a = szn(n, 2, 1);
+    ll a1 = szn(n - ans, m, x);
+    ll a2 = szn(n, m, x + 1);
+    return a1 + a2;
 }
 void solve() 
 {
-    ll n,m; cin >> n >> m;
-    ll graph[n+1][m+1];
-    memset(graph, 0, sizeof(graph));
-    forn(i,m+1)
-    {
-        ll x,y,c; cin >> x >> y >> c;
-        graph[x][y]=c;
-    }
-    // forn(i,n+1)
-    // {
-    //     forn(j,m+1)
-    //     {
-    //         cout << graph[i][j] << " ";
-    //     }
-    //     cout << endl;
-    // }
-
+    ll n; cin >> n;
+    cout << szn(n, 2, 1) << endl;
 }
 int main() 
 {
     FAST_IO;
     // freopen("time.in", "r", stdin); freopen("time.out", "w", stdout);
-    // cin >> tt; while(tt--) {solve();}
-    solve();
+    cin >> tt; while(tt--) {solve();}
+    // solve();
 }

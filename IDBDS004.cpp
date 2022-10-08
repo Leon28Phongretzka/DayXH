@@ -38,41 +38,35 @@ typedef vector<string> vs;
 #define sz(s) ((int)(s.size()))
 #define UM uno\nrdered_map
 #define US uno\nrdered_set
-#define forn(i, n) for (int i = 1; i < int(n); i++)
+#define forn(i, n) for (int i = 1; i <= int(n); i++)
 #define fora(i, n) for(auto i:n)
 #define Len 1000005
 const double pi=3.14159265358979323846;
-const int MOD = 1000000007;
-ll tt;
-void Travelling_Salesman_Problem()
+const int MOD = 1000000004;
+int tt;
+ll Fib[46];
+void Fib()
+{
+    Fib[0] = 0;
+    Fib[1] = 1;
+    for (int i = 2; i < 46; i++)
+        Fib[i] = Fib[i - 1] + Fib[i - 2];
+}
+ll szn004(ll n, ll m, ll x)
 {
     
-
 }
 void solve() 
 {
-    ll n,m; cin >> n >> m;
-    ll graph[n+1][m+1];
-    memset(graph, 0, sizeof(graph));
-    forn(i,m+1)
-    {
-        ll x,y,c; cin >> x >> y >> c;
-        graph[x][y]=c;
-    }
-    // forn(i,n+1)
-    // {
-    //     forn(j,m+1)
-    //     {
-    //         cout << graph[i][j] << " ";
-    //     }
-    //     cout << endl;
-    // }
-
+    ll n; cin >> n;
+    cout << szn004(n, 0, 2) << endl;
 }
 int main() 
 {
     FAST_IO;
+    // Sett();
+    Fib();
     // freopen("time.in", "r", stdin); freopen("time.out", "w", stdout);
-    // cin >> tt; while(tt--) {solve();}
-    solve();
+    cin >> tt; while(tt--) {solve();}
+    // solve();
 }

@@ -38,41 +38,58 @@ typedef vector<string> vs;
 #define sz(s) ((int)(s.size()))
 #define UM uno\nrdered_map
 #define US uno\nrdered_set
-#define forn(i, n) for (int i = 1; i < int(n); i++)
+#define forn(i, n) for (int i = 1; i <= int(n); i++)
 #define fora(i, n) for(auto i:n)
 #define Len 1000005
 const double pi=3.14159265358979323846;
 const int MOD = 1000000007;
-ll tt;
-void Travelling_Salesman_Problem()
+int tt;
+bool prime[1005];
+void Sett()
 {
-    
-
+    memset(prime, true, sizeof(prime));
+    for (int p = 2; p * p <= 1000; p++)
+    {
+        if (prime[p] == true)
+        {
+            for (int i = p * p; i <= 1000; i += p)
+                prime[i] = false;
+        }
+    }
+}
+ll power(ll a, ll n)
+{
+    ll ans = 1;
+    while (n)
+    {
+        if (n & 1)
+            ans = (ans * a);
+        a = (a * a);
+        n >>= 1;
+    }
+    return ans;
+}
+ll szn007(ll n, ll m, ll x)
+{
+    ll ans = power(x, m);
+    if (ans == n)
+        return 1;
+    if (ans > n)
+        return 0;
+    ll a1=szn007(n-ans,m,x);
+    ll a2=szn007(n,m+1,x);
+    return a1+a2;
 }
 void solve() 
 {
-    ll n,m; cin >> n >> m;
-    ll graph[n+1][m+1];
-    memset(graph, 0, sizeof(graph));
-    forn(i,m+1)
-    {
-        ll x,y,c; cin >> x >> y >> c;
-        graph[x][y]=c;
-    }
-    // forn(i,n+1)
-    // {
-    //     forn(j,m+1)
-    //     {
-    //         cout << graph[i][j] << " ";
-    //     }
-    //     cout << endl;
-    // }
-
+    ll n; cin >> n;
+    cout << szn007(n, 0, 2) << endl;
 }
 int main() 
 {
     FAST_IO;
+    // Sett();
     // freopen("time.in", "r", stdin); freopen("time.out", "w", stdout);
-    // cin >> tt; while(tt--) {solve();}
-    solve();
+    cin >> tt; while(tt--) {solve();}
+    // solve();
 }
