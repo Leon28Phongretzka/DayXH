@@ -44,33 +44,6 @@ typedef vector<string> vs;
 const double pi=3.14159265358979323846;
 const int MOD = 1000000007;
 ll tt;
-string add(string a, string b)
-{
-    string ans = "";
-    int carry = 0;
-    int i = a.length() - 1;
-    int j = b.length() - 1;
-    while (i >= 0 || j >= 0)
-    {
-        int sum = carry;
-        if (i >= 0)
-        {
-            sum += a[i] - '0';
-            i--;
-        }
-        if (j >= 0)
-        {
-            sum += b[j] - '0';
-            j--;
-        }
-        ans += to_string(sum % 10);
-        carry = sum / 10;
-    }
-    if (carry)
-        ans += to_string(carry);
-    reverse(ans.begin(), ans.end());
-    return ans;
-}
 void substring(string s)
 {
     ll ans=0;
@@ -88,27 +61,7 @@ void substring(string s)
 }
 void solve() 
 {
-    ll n; cin >> n;
-    vl a(n);
-    string s;
-    forn(i,n) 
-    {
-        cin >> a[i];
-    }
-    sort(a.begin(), a.end());
-    forn(i,n) 
-    {
-        s += to_string(a[i]);
-    }
-    // cout << s << endl;
-    substring(s);
-    cout << "[";
-    for(int i=0; i<n; i++)
-    {
-        cout << a[i];
-        if(i!=n-1) cout << ", ";
-    }
-    cout << "]" << endl;
+    
 }
 int main() 
 {
