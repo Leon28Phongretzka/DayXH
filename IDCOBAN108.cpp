@@ -40,44 +40,30 @@ typedef vector<string> vs;
 #define US uno\nrdered_set
 #define forn(i, n) for (int i = 1; i <= ll(n); i++)
 #define fora(i, n) for(auto i:n)
-#define Len 100005
-const int N = 1000007;
-void solve11(string s, int i, int j, int level, string temp,vector<string>& res)
+#define Len 1000005
+const int N = 10000007;
+string operator_compare(string a, string b)
 {
-    if (i == (j + 1) && level == 5) 
+    if (a.size() > b.size())
+        return a;
+    if (a.size() < b.size())
+        return b;
+    for (int i = 0; i < a.size(); i++)
     {
-        res.push_back(temp.substr(1));
+        if (a[i] > b[i])
+            return a;
+        if (a[i] < b[i])
+            return b;
     }
-    // Digits of a number ranging 0-255 can lie only between
-    // 0-3
-    for (int k = i; k < i + 3 && k <= j; k++) 
-    {
-        string ad = s.substr(i, k - i + 1);
-        // Return if string starting with '0' or it is
-        // greater than 255.
-        if ((s[i] == '0'&&ad.size()>1) || stol(ad) > 255)
-            return; 
-      // Recursively call for another level.
-        solve11(s, k + 1, j, level + 1, temp + '.' + ad, res);
-    }
+    return a;
 }
- 
 void solve() 
 {
-    string s; cin >> s;
-	int n = s.length();
-	vector<string> ans;
-    ll azt=0;
-	solve11(s, 0, n - 1, 1, "", ans);
-	for (string s : ans)
-		azt++;
-    cout<<azt<<endl;
+    ll n; cin >> n;
 }
 int main() 
 {
     FAST_IO;
-    // SieveOfEratosthenes();
-    // freopen("time.in", "r", stdin); freopen("time.out", "w", stdout);
-    int tt; cin >> tt; for (int i = 1; i <= tt; i++) {solve();}
-    // solve();
+    //freopen("bignumber.in", "r", stdin); freopen("bignumber.out", "w", stdout);
+    int tt; cin >> tt; while(tt--) {solve();}
 }
