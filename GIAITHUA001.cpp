@@ -38,39 +38,12 @@ typedef vector<string> vs;
 #define sz(s) ((int)(s.size()))
 #define UM uno\nrdered_map
 #define US uno\nrdered_set
-#define forn(i, n) for (int i = 1; i <= ll(n); i++)
+#define forn(i, n) for (int i = 1; i <= int(n); i++)
 #define fora(i, n) for(auto i:n)
 #define Len 100005
-const int N = 1000007;
-string add(string a, string b)
-{
-    string res="";
-    int n=a.size();
-    int m=b.size();
-    int i=n-1, j=m-1;
-    int carry=0;
-    for(int i=n-1, j=m-1; i>=0 || j>=0; i--, j--)
-    {
-        int m=(i>=0)?a[i]-'0':0;
-        int n=(j>=0)?b[j]-'0':0;
-        int sum=m+n+carry;
-        if (sum >= 10)
-        {
-            sum = sum % 10;
-            carry = 1;
-        }
-        else
-        {
-            carry = 0;
-        }
-        res = string(1, sum + '0') + res;
-    }
-    if (carry == 1)
-    {
-        res = string(1, '1') + res;
-    }
-    return res;
-}
+const double pi=3.14159265358979323846;
+const int MOD = 1000000007;
+using namespace std;
 string mult(string a, string b)
 {
     string res="";
@@ -95,31 +68,25 @@ string mult(string a, string b)
     }
     return res;
 }
-void solve() 
+void solve()
 {
-    freopen("bignumber.in", "r", stdin); freopen("bignumber.out", "w", stdout);
-    int t; cin >> t;
-    cin.ignore();
-    while(t--)
+    string ans = "1";
+    ll b; cin >> b;
+    if(b==0)
     {
-        string s;
-        getline(cin,s);
-        stringstream ss(s);
-        vector<string> v;
-        while(ss>>s)
-        {
-            v.push_back(s);
-        }
-        //cout << v[1] << endl;
-        if(v[1]=="+") cout << add(v[0],v[2]);
-        else cout << mult(v[0],v[2]);
-        cout << endl;
+        cout << 1 << endl;
+        return;
     }
+    for(ll i=1; i<=b; i++)
+    {
+        ans=mult(ans, to_string(i));
+    }
+    cout << ans << endl;
 }
 int main() 
 {
     FAST_IO;
-    freopen("bignumber1.txt", "r", stdin); freopen("bignumber2.txt", "w", stdout);
-    //int tt; cin >> tt; for (int i = 1; i <= tt; i++) {solve();}
-    solve();
+    // freopen("time.in", "r", stdin); freopen("time.out", "w", stdout);
+    int tt; cin >> tt; for (auto i = 1; i <= tt; i++) {solve();}
+    // solve();
 }
