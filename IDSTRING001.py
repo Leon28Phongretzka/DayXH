@@ -15,3 +15,6 @@ if __name__ == '__main__':
             print(s2.index(s1))
         except:
             print(-1)
+
+
+
