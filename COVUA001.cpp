@@ -38,37 +38,54 @@ typedef vector<string> vs;
 #define sz(s) ((int)(s.size()))
 #define UM uno\nrdered_map
 #define US uno\nrdered_set
-#define forn(i, n) for (int i = 0; i < ll(n); i++)
+#define forn1(i, n) for (int i = 0; i < int(n); i++)
+#define forn2(i, n) for (int i = 1; i <= int(n); i++)
 #define fora(i, n) for(auto i:n)
 #define Len 100005
-const int N = 1000007;
-bool prime[N + 1]; 
-void solve() 
+const int MOD = 1000000007;
+ll n,k,x,y;
+vvb board;
+vi X = {2,1,-1,-2,-2,-1,1,2};
+vi Y = {1,2,2,1,-1,-2,-2,-1};
+bool check(int x, int y, int n)
 {
-    int n; cin >> n;
-    vl a;
-    forn(i,n)
+    if(x>=0 && x<n && y>=0 && y<n) return true;
+    return false;
+}
+// Count all possible visited cells of a knight after N moves use Dynamic Programming
+void Try(int a, int b, int step)
+{
+    if(step==k+1) return;
+    board[a][b]=true;
+    forn1(i,8)
     {
-        long long x; cin >> x;
-        a.pb(x);
-    }
-    int flag=1;
-    for(int i=1; i<n-1; i++)
-    {
-        if(2*a[i]!=(a[i-1]+a[i+1]))
+        if(check(a+X[i],b+Y[i],n)==true)
         {
-            flag=0;
-            break;
+            Try(a+X[i],b+Y[i],step+1);
         }
     }
-    if(flag) cout << "YES";
-    else cout << "NO";
+}
+void solve()
+{
+    {
+        cin>>n>>k>>x>>y;
+        board.assign(n,vb(n,false));
+        Try(x-1,y-1,0);
+        int ans=0;
+        forn1(i,n)
+        {
+            forn1(j,n)
+            {
+                if(board[i][j]==true) ans++;
+            }
+        }
+        cout<<ans<<'\n';
+    }
 }
 int main() 
 {
     FAST_IO;
-    // SieveOfEratosthenes();
     // freopen("time.in", "r", stdin); freopen("time.out", "w", stdout);
-    // int tt; cin >> tt; for (int i = 1; i <= tt; i++) {solve();}
-    solve();
+    int tt; cin >> tt; for (int i = 1; i <= tt; i++) {solve();}
+    // solve();
 }

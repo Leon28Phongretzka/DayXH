@@ -38,37 +38,64 @@ typedef vector<string> vs;
 #define sz(s) ((int)(s.size()))
 #define UM uno\nrdered_map
 #define US uno\nrdered_set
-#define forn(i, n) for (int i = 0; i < ll(n); i++)
+#define forn1(i, n) for (int i = 0; i < int(n); i++)
+#define forn2(i, n) for (int i = 1; i <= int(n); i++)
 #define fora(i, n) for(auto i:n)
 #define Len 100005
-const int N = 1000007;
-bool prime[N + 1]; 
+const int MOD = 1000000007;
+bool check(char i)
+{
+    if(i!='*'||i!='-'||i!='/')
+    {
+        return true;
+    }
+    return false;
+}
 void solve() 
 {
-    int n; cin >> n;
-    vl a;
-    forn(i,n)
+    string s= "", tmp;
+    cin.ignore();
+    getline(cin, tmp);
+    forn1(i,sz(tmp))
     {
-        long long x; cin >> x;
-        a.pb(x);
+        if(tmp[i]==' ') continue;
+        s+=tmp[i];
     }
-    int flag=1;
-    for(int i=1; i<n-1; i++)
+    // cout << s << endl;
+    stack<char> st;
+    for (auto &ch : s)
     {
-        if(2*a[i]!=(a[i-1]+a[i+1]))
+        if (ch == ')')
         {
-            flag=0;
-            break;
+            char top = st.top();
+            st.pop();
+            bool ok = true;
+
+            while (!st.empty() and top != '(')
+            {
+
+                if (top == '-' || top == '*' || top == '/')
+                    ok = false;
+
+                top = st.top();
+                st.pop();
+            }
+            if (ok == true)
+            {
+                cout << "Yes" << endl;
+                return;
+            }
         }
+
+        else
+            st.push(ch);
     }
-    if(flag) cout << "YES";
-    else cout << "NO";
+    cout << "No" << endl;
 }
 int main() 
 {
     FAST_IO;
-    // SieveOfEratosthenes();
     // freopen("time.in", "r", stdin); freopen("time.out", "w", stdout);
-    // int tt; cin >> tt; for (int i = 1; i <= tt; i++) {solve();}
-    solve();
+    int tt; cin >> tt; for (int i = 1; i <= tt; i++) {solve();}
+    // solve();
 }

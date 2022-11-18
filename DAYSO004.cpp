@@ -38,37 +38,47 @@ typedef vector<string> vs;
 #define sz(s) ((int)(s.size()))
 #define UM uno\nrdered_map
 #define US uno\nrdered_set
-#define forn(i, n) for (int i = 0; i < ll(n); i++)
+#define forN(i,a,b) for (int i = (int)a; i < int(b); i++)
+#define forR(i,a,b) for (int i = (int)a; i >= int(b); i--)
 #define fora(i, n) for(auto i:n)
 #define Len 100005
-const int N = 1000007;
-bool prime[N + 1]; 
-void solve() 
+const int MOD = 1000000007;
+void solve()
 {
-    int n; cin >> n;
-    vl a;
-    forn(i,n)
+    ll n;
+    cin >> n;
+    ll a[n + 5], dp[n + 1];
+    forN(i, 1, n + 1)
     {
-        long long x; cin >> x;
-        a.pb(x);
+        cin >> a[i];
     }
-    int flag=1;
-    for(int i=1; i<n-1; i++)
+    dp[1] = 1;
+    ll res = 1;
+    forN(i, 2, n + 1)
     {
-        if(2*a[i]!=(a[i-1]+a[i+1]))
+        ll l = 1, r = res, j = 0;
+        while (l <= r)
         {
-            flag=0;
-            break;
+            ll mid = (l + r) / 2;
+            if (a[dp[mid]] < a[i])
+            {
+                j = mid;
+                l = mid + 1;
+            }
+            else
+                r = mid - 1;
         }
+        if (j == res)
+            dp[++res] = i;
+        if (a[dp[j + 1]] > a[i])
+            dp[j + 1] = i;
     }
-    if(flag) cout << "YES";
-    else cout << "NO";
+    cout << res << endl;
 }
 int main() 
 {
     FAST_IO;
-    // SieveOfEratosthenes();
     // freopen("time.in", "r", stdin); freopen("time.out", "w", stdout);
-    // int tt; cin >> tt; for (int i = 1; i <= tt; i++) {solve();}
-    solve();
+    int tt; cin >> tt; for (int i = 1; i <= tt; i++) {solve();}
+    // solve();
 }

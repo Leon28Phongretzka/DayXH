@@ -38,37 +38,37 @@ typedef vector<string> vs;
 #define sz(s) ((int)(s.size()))
 #define UM uno\nrdered_map
 #define US uno\nrdered_set
-#define forn(i, n) for (int i = 0; i < ll(n); i++)
+#define forN(i,a,b) for (int i = (int)a; i < int(b); i++)
+#define forR(i,a,b) for (int i = (int)a; i >= int(b); i--)
 #define fora(i, n) for(auto i:n)
 #define Len 100005
-const int N = 1000007;
-bool prime[N + 1]; 
-void solve() 
+const int MOD = 1000000007;
+void solve()
 {
-    int n; cin >> n;
-    vl a;
-    forn(i,n)
+    ll n;
+    cin >> n;
+    ll a[n + 5];
+    mll mp;
+    forN(i, 1, n + 1)
     {
-        long long x; cin >> x;
-        a.pb(x);
+        cin >> a[i];
+        mp[a[i]]++;
     }
-    int flag=1;
-    for(int i=1; i<n-1; i++)
+    ll ans=0;
+    for(auto i:mp)
     {
-        if(2*a[i]!=(a[i-1]+a[i+1]))
+        if(i.second==1)
         {
-            flag=0;
-            break;
+            ans++;
         }
     }
-    if(flag) cout << "YES";
-    else cout << "NO";
+    cout<<ans<<endl;
+    
 }
 int main() 
 {
     FAST_IO;
-    // SieveOfEratosthenes();
     // freopen("time.in", "r", stdin); freopen("time.out", "w", stdout);
-    // int tt; cin >> tt; for (int i = 1; i <= tt; i++) {solve();}
-    solve();
+    int tt; cin >> tt; for (int i = 1; i <= tt; i++) {solve();}
+    // solve();
 }

@@ -38,37 +38,31 @@ typedef vector<string> vs;
 #define sz(s) ((int)(s.size()))
 #define UM uno\nrdered_map
 #define US uno\nrdered_set
-#define forn(i, n) for (int i = 0; i < ll(n); i++)
+#define forn(i, n) for (int i = 1; i <= int(n); i++)
 #define fora(i, n) for(auto i:n)
 #define Len 100005
-const int N = 1000007;
-bool prime[N + 1]; 
+const int MOD = 1000000007;
 void solve() 
 {
     int n; cin >> n;
-    vl a;
-    forn(i,n)
+    // Print gray code sequence for n-bits
+    for (int i = 0; i < (1 << n); i++) 
     {
-        long long x; cin >> x;
-        a.pb(x);
+        // ">>" for right shifting
+        // "^" for bitwise xor
+        int val = (i >> 1) ^ i;
+        bitset<32> r(val);
+        string s = r.to_string();
+        cout << s.substr(32 - n) << " ";
     }
-    int flag=1;
-    for(int i=1; i<n-1; i++)
-    {
-        if(2*a[i]!=(a[i-1]+a[i+1]))
-        {
-            flag=0;
-            break;
-        }
-    }
-    if(flag) cout << "YES";
-    else cout << "NO";
+    cout << endl;
+
+    
 }
 int main() 
 {
     FAST_IO;
-    // SieveOfEratosthenes();
     // freopen("time.in", "r", stdin); freopen("time.out", "w", stdout);
-    // int tt; cin >> tt; for (int i = 1; i <= tt; i++) {solve();}
-    solve();
+    int tt; cin >> tt; for (int i = 1; i <= tt; i++) {solve();}
+    // solve();
 }
