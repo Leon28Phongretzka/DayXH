@@ -52,7 +52,6 @@ bool check(int x, int y, int n)
     if(x>=0 && x<n && y>=0 && y<n) return true;
     return false;
 }
-// Count all possible visited cells of a knight after N moves use Dynamic Programming
 void Try(int a, int b, int step)
 {
     if(step==k+1) return;

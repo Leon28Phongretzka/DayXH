@@ -38,22 +38,38 @@ typedef vector<string> vs;
 #define sz(s) ((int)(s.size()))
 #define UM uno\nrdered_map
 #define US uno\nrdered_set
-#define forn(i, n) for (int i = 1; i <= ll(n); i++)
+#define forN(i,a,b) for (int i = (int)a; i < int(b); i++)
+#define forR(i,a,b) for (int i = (int)a; i >= int(b); i--)
 #define fora(i, n) for(auto i:n)
-#define Len 1000005
-const int N = 10000007;
-void solve() 
+#define Len 100005
+const int MOD = 1000000007;
+bool pro(ll n, ll x)
 {
-    int dulieu = 0b01101100;
-    for(int i=1; i<=8; i++)
+    ll cnt = 0;
+    while (n)
     {
-        cout << (dulieu >> (8-i)&1) << endl;
+        cnt += (n & 1) ? 0 : 1;
+        n /= 2;
     }
+    return cnt == x;
+}
+
+void solve()
+{
+    ll n, x;
+    cin >> n >> x;
+    ll cnt = 0;
+    forN(i, 1, n + 1)
+    {
+        if (pro(i, x))
+            cnt++;
+    }
+    cout << cnt << endl;
 }
 int main() 
 {
     FAST_IO;
-    //freopen("bignumber.in", "r", stdin); freopen("bignumber.out", "w", stdout);
-    // int tt; cin >> tt; for (int i = 1; i <= tt; i++) {solve();}
-    solve();
+    // freopen("time.in", "r", stdin); freopen("time.out", "w", stdout);
+    int tt; cin >> tt; for (int i = 1; i <= tt; i++) {solve();}
+    // solve();
 }
