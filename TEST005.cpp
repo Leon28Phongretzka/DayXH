@@ -38,77 +38,53 @@ typedef vector<string> vs;
 #define sz(s) ((int)(s.size()))
 #define UM uno\nrdered_map
 #define US uno\nrdered_set
-#define forn(i, n) for (int i = 1; i <= ll(n); i++)
+#define forN(i,a,b) for (int i = int(a); i < int(b); i++)
+#define forR(i,a,b) for (int i = int(a); i >= int(b); i--)
 #define fora(i, n) for(auto i:n)
-#define Len 100005
-const int N = 1000007;
-bool prime[N + 1]; 
-void SieveOfEratosthenes() 
-{ 
-    memset(prime, true, sizeof(prime)); 
-    prime[0] = false;
-    prime[1] = false; 
-  
-    for(int i = 2; i * i <= N; ++i) 
-    {
-         if(prime[i] == true) 
-         {
-             for(int j = i * i; j <= N; j += i)
-                 prime[j] = false;
-        } 
-    } 
-}
-void solve() 
+#define Len 1000005
+const double pi=3.14159265358979323846;
+const int MOD = 1000000007;
+ll tt;
+string mult(string a, string b)
 {
-    ll n; cin >> n;
-    // find the highest prime factor of n
-    ll ans = 0;
-    ll t=n;
-    mll m;
-    while (n % 2 == 0)
+    string res="";
+    int n=a.size();
+    int m=b.size();
+    //create res is the answer
+    res.assign(n+m,'0');
+    for(int i=n-1; i>=0;i--)
     {
-        m[2]++;
-        n = n/2;
-    }
-    while (n%3==0)
-    {
-        m[3]++;
-        n = n/3;
-    }
-    for(ll i=5; i*i<=n; i+=6)
-    {
-        while(n%i==0)
+        for(int j=m-1; j>=0; j--)
         {
-            m[i]++;
-            n = n/i;
-        }
-        while(n%(i+2)==0)
-        {
-            m[i+2]++;
-            n = n/(i+2);
+            int mul=(a[i]-'0')*(b[j]-'0');
+            int p1=i+j, p2=i+j+1;
+            int sum=mul+res[p2]-'0';
+            res[p2]=sum%10+'0';
+            res[p1]+=sum/10;
         }
     }
-    if(n>2) m[n]++;
-    // fora(i, m)
-    // {
-    //     if(i.first>ans)
-    //     {
-    //         ans = i.first;
-    //     }
-    // }
-    // cout << ans << endl;
-    fora(i,m)
+    while (res[0] == '0' && res.length() > 1)
     {
-        cout << i.first << " " << i.second << endl;
+        res.erase(0, 1);
     }
-    cout << endl;
+    return res;
+}
+void solve()
+{
+    int a,b; cin >> a >> b;
+    string res = "1";
+    forN(i,a-b+1,a+1)
+    {
+        res = mult(res, to_string(i));
+    }
+    cout << res << endl;
+
 
 }
 int main() 
 {
     FAST_IO;
-    // SieveOfEratosthenes();
     // freopen("time.in", "r", stdin); freopen("time.out", "w", stdout);
-    int tt; cin >> tt; for (int i = 1; i <= tt; i++) {solve();}
+    cin >> tt; while(tt--) {solve();}
     // solve();
 }
