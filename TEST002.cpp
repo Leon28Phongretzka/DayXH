@@ -38,7 +38,8 @@ typedef vector<string> vs;
 #define sz(s) ((int)(s.size()))
 #define UM uno\nrdered_map
 #define US uno\nrdered_set
-#define forn(i, n) for (int i = 0; i < int(n); i++)
+#define forn(i,a,b) for (int i = (int)a; i < int(b); i++)
+#define forr(i,a,b) for (int i = (int)a; i >= int(b); i--)
 #define fora(i, n) for(auto i:n)
 #define Len 1000005
 const double pi=3.14159265358979323846;
@@ -47,10 +48,9 @@ ll tt;
 ll a[200][200], dp[200][200];
 void solve() 
 {
-    ll n,m;
+    ll n,m,ans=-MOD;
     cin >> n >> m;
-    for(int i=1; i<=m; i++)
-        dp[0][i] = dp[n + 1][i] = 0;
+    // set dp 
     for(int i=1; i<=n; i++)
     {
         for(int j=1; j<=m; j++)
@@ -58,28 +58,24 @@ void solve()
             cin >> a[i][j];
         }
     }
-    ll x,y; cin >> x >> y;
+    ll x, y; cin >> x >> y;
     if (m == 1 && n == 1)
     {
         cout << a[1][1] << '\n';
         return;
     }
-    for(int j=1; j<=m; j++)
+    for(int j=x; j<=m; j++)
     {
-        for(int i=1; i<=n; i++)
+        for(int i=y; i<=n; i++)
         {
             dp[i][j] = a[i][j] + min(dp[i - 1][j - 1], min(dp[i][j - 1], dp[i + 1][j - 1]));
         }
     }
-    // print DP
     for(int i=1; i<=n; i++)
     {
-        for(int j=1; j<=m; j++)
-        {
-            cout << dp[i][j] << ' ';
-        }
-        cout << '\n';
+        ans = max(ans, dp[i][m]);
     }
+    cout << ans << '\n';
 }
 int main() 
 {

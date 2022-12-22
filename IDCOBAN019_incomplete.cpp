@@ -38,19 +38,23 @@ typedef vector<string> vs;
 #define sz(s) ((int)(s.size()))
 #define UM uno\nrdered_map
 #define US uno\nrdered_set
-#define forn(i, n) for (int i = 1; i <= ll(n); i++)
+#define forN(i,a,b) for (int i = int(a); i < int(b); i++)
+#define forR(i,a,b) for (int i = int(a); i >= int(b); i--)
 #define fora(i, n) for(auto i:n)
-#define Len 100005
-const int N = 1000007;
-int isSquare(int n)
+#define Len 1000005
+const double pi=3.14159265358979323846;
+const int MOD = 1000000007;
+ll tinh(ll n)
 {
-    int s = sqrt(n);
-    return (s*s == n);
+  if(n<=1) return n;
+  ll x=sqrt(n);
+  ll a=n%2+tinh(n/2), b=n%3+tinh(n/3), c=n-x*x+tinh(x);
+  return 1+min(a,min(b,c));
 }
 void solve() 
 {
     int n; cin >> n;
-
+    cout << tinh(n) << endl;
 
 }
 int main() 

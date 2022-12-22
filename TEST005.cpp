@@ -45,6 +45,35 @@ typedef vector<string> vs;
 const double pi=3.14159265358979323846;
 const int MOD = 1000000007;
 ll tt;
+string add(string a, string b)
+{
+    string res="";
+    int n=a.size();
+    int m=b.size();
+    int i=n-1, j=m-1;
+    int carry=0;
+    for(int i=n-1, j=m-1; i>=0 || j>=0; i--, j--)
+    {
+        int m=(i>=0)?a[i]-'0':0;
+        int n=(j>=0)?b[j]-'0':0;
+        int sum=m+n+carry;
+        if (sum >= 10)
+        {
+            sum = sum % 10;
+            carry = 1;
+        }
+        else
+        {
+            carry = 0;
+        }
+        res = string(1, sum + '0') + res;
+    }
+    if (carry == 1)
+    {
+        res = string(1, '1') + res;
+    }
+    return res;
+}
 string mult(string a, string b)
 {
     string res="";
