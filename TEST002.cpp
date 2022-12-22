@@ -38,8 +38,7 @@ typedef vector<string> vs;
 #define sz(s) ((int)(s.size()))
 #define UM uno\nrdered_map
 #define US uno\nrdered_set
-#define forn(i,a,b) for (int i = (int)a; i < int(b); i++)
-#define forr(i,a,b) for (int i = (int)a; i >= int(b); i--)
+#define forn(i, n) for (int i = 0; i < int(n); i++)
 #define fora(i, n) for(auto i:n)
 #define Len 1000005
 const double pi=3.14159265358979323846;
@@ -48,34 +47,48 @@ ll tt;
 ll a[200][200], dp[200][200];
 void solve() 
 {
-    ll n,m,ans=-MOD;
-    cin >> n >> m;
-    // set dp 
-    for(int i=1; i<=n; i++)
-    {
-        for(int j=1; j<=m; j++)
-        {
-            cin >> a[i][j];
-        }
-    }
-    ll x, y; cin >> x >> y;
-    if (m == 1 && n == 1)
-    {
-        cout << a[1][1] << '\n';
-        return;
-    }
-    for(int j=x; j<=m; j++)
-    {
-        for(int i=y; i<=n; i++)
-        {
-            dp[i][j] = a[i][j] + min(dp[i - 1][j - 1], min(dp[i][j - 1], dp[i + 1][j - 1]));
-        }
-    }
-    for(int i=1; i<=n; i++)
-    {
-        ans = max(ans, dp[i][m]);
-    }
-    cout << ans << '\n';
+    ll n,m,ans=INT_MAX;
+    ll x,y; 
+
+    cin >> m >> n;
+	    for(int i = 1; i <= m; i++)
+		{
+			for(int j = 1; j <= n; j++)
+			{
+				cin >> a[i][j];
+			}	
+		} 
+		
+	cin >> x >> y;
+	for(int i = 1; i <= n; i++)
+		{
+			dp[0][i] = INT_MAX, dp[m+1][i] = INT_MAX;
+		}
+	    for(int i = 1; i <= m; i++)
+		{ 
+			if(i != x) 
+			{
+				a[i][y] = INT_MAX;
+			}
+		}
+	    for(int i = 1; i <= m; i++)
+		{	 
+			dp[i][y] = a[i][y];
+		}
+	    for(int j = y + 1; j <= n; j++)
+		{
+	      	for(int i = 1; i <= m; i++)
+			{	
+	        	dp[i][j] = min(min(dp[i-1][j-1], dp[i][j-1]), dp[i+1][j-1]) + a[i][j];
+	      	}	
+	    }
+	    for(int i = 1; i <= m; i++)
+		{	 
+			ans = min(ans,dp[i][n]);
+		}
+	    cout << ans << endl;
+
+
 }
 int main() 
 {
