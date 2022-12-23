@@ -45,7 +45,7 @@ const int MOD = 1000000007;
 int tt,i;
 int n;
 vi res;
-void dfs(int i, vector<int> &row, vector<bool> &col, vector<bool>& main, vector<bool> &anti, int &count) 
+void dfs(int i, vector<int> &row, vector<bool> &col, vector<bool> &main, vector<bool> &anti, int &count) 
 {
         if (i == row.size()) 
         {

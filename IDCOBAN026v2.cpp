@@ -42,15 +42,42 @@ typedef vector<string> vs;
 #define Len 100005
 const double pi=3.14159265358979323846;
 const int MOD = 1000000007;
-ll adj[505][505];
+int n, mask, al;
+vvi adj(20, vi(20, INT_MAX));
+int dfs(int src, int mask, vvi &adj)
+{
+    if (mask == 0) return adj[src][1];
+    int ans = INT_MAX;
+    forn(i,1,n+1)
+    {
+        if (i == src) continue;
+        if (mask & (1 << (i-1)))
+        {
+            int new_mask = mask ^ (1 << (i-1));
+            ans = min(ans, adj[src][i] + dfs(i, new_mask, adj));
+        }
+    }
+    return ans;
+}
+int s_cost(vvi &adj)
+{
+    int ans = INT_MAX;
+    mask = (1 << n) - 1;
+    forn(i,2,n+1)
+    {
+        ans = min(ans, adj[1][i] + dfs(i, mask ^ (1 << (i-1)), adj));
+    }
+    return ans;
+}
 
 void solve() 
 {
-    int n,m; cin >> n >> m;
+    int m; cin >> n >> m;
     int ans = INT_MAX;
+    forn(i,0,n+1) forn(j,0,n+1) adj[i][j] = 0;
     forn(i,0,m)
     {
-        ll u,v,cost; cin >> u >> v >> cost;
+        int u,v,cost; cin >> u >> v >> cost;
         adj[u][v] = cost;
     }
     forn(i,1,n+1)
@@ -58,6 +85,7 @@ void solve()
         forn(j,1,n+1) cout << adj[i][j] << " ";
         cout << endl;
     }
+    cout << s_cost(adj);
 }
 int main() 
 {

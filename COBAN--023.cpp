@@ -36,47 +36,47 @@ typedef vector<string> vs;
 #define eb emplace_back
 #define ob pop_back
 #define sz(s) ((int)(s.size()))
-#define UM uno\nrdered_map
-#define US uno\nrdered_set
-#define forn(i, n) for (int i = 0; i < int(n); i++)
+#define forn(i,a,b) for (ll i = a; i < b; i++)
+#define forr(i,a,b) for (ll i = a; i >= b; i--)
 #define fora(i, n) for(auto i:n)
-#define Len 1000005
+#define Len 100005
 const double pi=3.14159265358979323846;
 const int MOD = 1000000007;
-ll tt;
-ll cal(ll n, ll k)
-{
-    ll a[k + 1][n + 1];
-    for(ll i=0; i<=n; i++)
-    {
-        a[1][i]=1;
-    }
-    ll sum;
-    for(ll i=2; i<=k; i++)
-    {
-        for(ll j=0; j<=n; j++)
-        {
-            sum=0;
-            for(ll k=0; k<=j; k++)
-            {
-                sum+=a[i-1][k];
-            }
-            a[i][j]=sum;
-        }
-    }
-    return a[k][n];
-}
 void solve() 
 {
-    ll n,k; cin >> n >> k;
-
-    cout << cal(n, k) << endl;
+    ll n; cin >> n;
+    vl v;
+    ll v1[n+3][n+3]={0};
+    forn(i,0,n) {ll x; cin >> x; v.pb(x);}
+    // fora(i,v) cout << i << " ";
+    forn(i,0,n)
+    {
+        v1[0][i]=v[i];
+    }
+    forn(i,1,n)
+    {
+        forn(j,0,n-1)
+        {
+            v1[i][j]=v1[i-1][j]+v1[i-1][j+1];
+        }
+    }
+    forr(i,n-1,0)
+    {   
+        cout << "[";
+        forn(j,0,n-i)
+        {
+            cout << v1[i][j];
+            if(j!=n-1-i||n-i>3) cout << " ";
+        }
+        cout << "]" << " ";
+    }
+    // cout << "[" << v1[n-1][0] << "]";
     
 }
 int main() 
 {
     FAST_IO;
     // freopen("time.in", "r", stdin); freopen("time.out", "w", stdout);
-    cin >> tt; while(tt--) {solve();}
+    ll tt; cin >> tt; for (int i = 1; i <= tt; i++) {solve();}
     // solve();
 }
