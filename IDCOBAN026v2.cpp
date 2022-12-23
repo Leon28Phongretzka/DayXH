@@ -43,37 +43,6 @@ typedef vector<string> vs;
 const double pi=3.14159265358979323846;
 const int MOD = 1000000007;
 ll adj[505][505];
-int memo[n + 1][1 << (n + 1)];
-
-int fun(int i, int mask, int n)
-{
-    // base case
-	// if only ith bit and 1st bit is set in our mask,
-	// it implies we have visited all other nodes already
-    // and we are back at the starting node
-    if (mask == (1 << (n + 1)) - 1)
-        return adj[i][0];
-    // memoization
-    if (memo[i][mask] != -1)
-        return memo[i][mask];
-    int ans = INT_MAX;
-    // we have to travel all nodes j in mask and end the
-	// path at ith node so for every node j in mask,
-	// recursively calculate cost of travelling all nodes in
-	// mask except i and then travel back from node j to
-	// node i taking the shortest path take the minimum of
-	// all possible j nodes
-    for (int j = 0; j <= n; j++)
-    {
-        if ((mask & (1 << j)) == 0)
-        {
-            int newAns = adj[i][j] + fun(j, mask | (1 << j), n);
-            ans = min(ans, newAns);
-        }
-    }
-    return memo[i][mask] = ans;
-
-}
 
 void solve() 
 {
@@ -84,12 +53,11 @@ void solve()
         ll u,v,cost; cin >> u >> v >> cost;
         adj[u][v] = cost;
     }
-    memset(memo, -1, sizeof(memo));
-    forn(i,0,n)
+    forn(i,1,n+1)
     {
-        ans = min(ans, fun(i, (1<<(n+1))-1+adj[i][0]), n);
+        forn(j,1,n+1) cout << adj[i][j] << " ";
+        cout << endl;
     }
-    cout << ans << endl;
 }
 int main() 
 {

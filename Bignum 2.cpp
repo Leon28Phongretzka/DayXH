@@ -98,10 +98,9 @@ void findSum(string a, string b)
         temp = temp % 10;
         res = char(temp + '0') + res;
     }
-    if(nho > 0) res = char(nho + '0') + res;
+    // if(nho > 0) res = char(nho + '0') + res;
     // if find '.' in string a or b, we add '.' to res
     if(a.find('.') != string::npos || b.find('.') != string::npos) res = '.' + res;
-    nho = 0;
     for(int i = IntergerA.size()-1; i >= 0; i--)
     {
         int temp = IntergerA[i] - '0' + IntergerB[i] - '0' + nho;
