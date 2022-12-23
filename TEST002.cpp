@@ -38,7 +38,8 @@ typedef vector<string> vs;
 #define sz(s) ((int)(s.size()))
 #define UM uno\nrdered_map
 #define US uno\nrdered_set
-#define forn(i, n) for (int i = 0; i < int(n); i++)
+#define forn(i,a,b) for (int i = (int)a; i < int(b); i++)
+#define forr(i,a,b) for (int i = (int)a; i >= int(b); i--)
 #define fora(i, n) for(auto i:n)
 #define Len 1000005
 const double pi=3.14159265358979323846;

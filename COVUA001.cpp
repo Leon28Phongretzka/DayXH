@@ -38,8 +38,8 @@ typedef vector<string> vs;
 #define sz(s) ((int)(s.size()))
 #define UM uno\nrdered_map
 #define US uno\nrdered_set
-#define forn1(i, n) for (int i = 0; i < int(n); i++)
-#define forn2(i, n) for (int i = 1; i <= int(n); i++)
+#define forn(i,a,b) for (int i = (int)a; i < int(b); i++)
+#define forr(i,a,b) for (int i = (int)a; i >= int(b); i--)
 #define fora(i, n) for(auto i:n)
 #define Len 100005
 const int MOD = 1000000007;
@@ -47,7 +47,7 @@ ll n,k,x,y;
 vvb board;
 vi X = {2,1,-1,-2,-2,-1,1,2};
 vi Y = {1,2,2,1,-1,-2,-2,-1};
-bool check(int x, int y, int n)
+bool check_in_the_box(int x, int y, int n)
 {
     if(x>=0 && x<n && y>=0 && y<n) return true;
     return false;
@@ -56,9 +56,9 @@ void Try(int a, int b, int step)
 {
     if(step==k+1) return;
     board[a][b]=true;
-    forn1(i,8)
+    forn(i,0,8)
     {
-        if(check(a+X[i],b+Y[i],n)==true)
+        if(check_in_the_box(a+X[i],b+Y[i],n)==true)
         {
             Try(a+X[i],b+Y[i],step+1);
         }
@@ -71,9 +71,9 @@ void solve()
         board.assign(n,vb(n,false));
         Try(x-1,y-1,0);
         int ans=0;
-        forn1(i,n)
+        forn(i,0,n)
         {
-            forn1(j,n)
+            forn(j,0,n)
             {
                 if(board[i][j]==true) ans++;
             }

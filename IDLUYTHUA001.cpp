@@ -52,18 +52,18 @@ string mult(string a, string b)
     res.assign(n+m,'0');
     for(int i=n-1; i>=0;i--)
     {
-            for(int j=m-1; j>=0; j--)
-            {
-                int mul=(a[i]-'0')*(b[j]-'0');
-                int p1=i+j, p2=i+j+1;
-                int sum=mul+res[p2]-'0';
-                res[p2]=sum%10+'0';
-                res[p1]+=sum/10;
-            }
+        for(int j=m-1; j>=0; j--)
+        {
+            int mul=(a[i]-'0')*(b[j]-'0');
+            int p1=i+j, p2=i+j+1;
+            int sum=mul+res[p2]-'0';
+            res[p2]=sum%10+'0';
+            res[p1]+=sum/10;
+        }
     }
     while (res[0] == '0' && res.length() > 1)
     {
-            res.erase(0, 1);
+        res.erase(0, 1);
     }
     return res;
 }

@@ -38,53 +38,51 @@ typedef vector<string> vs;
 #define sz(s) ((int)(s.size()))
 #define UM uno\nrdered_map
 #define US uno\nrdered_set
-#define forn(i, n) for (int i = 1; i < int(n); i++)
+#define forn(i,a,b) for (int i = (int)a; i < int(b); i++)
+#define forr(i,a,b) for (int i = (int)a; i >= int(b); i--)
 #define fora(i, n) for(auto i:n)
-#define Len 1000005
-const double pi=3.14159265358979323846;
+#define Len 100005
 const int MOD = 1000000007;
-ll tt;
-ll n , m , ans = INT_MAX  ,cmin = INT_MAX;
-ll c[500][500], check[50], luu[50] ,truoc[500];
-void TSP(ll k)
+ll n,m;
+ll dist[20][20];
+ll dp[20][1<<20];
+ll ans = INT_MAX;
+
+void Travel_Salesman(int u, int mask)
 {
-    for(int i=2; i<=n; ++i)
+    // use DP
+    if(mask == (1<<n)-1)
     {
-        if(check[i]==0 && c[truoc[k-1]][i]!=0 )
+        ans = min(ans, dist[u][0]);
+        return;
+    }
+    if(dp[u][mask] != -1) return;
+    for(int v=0; v<n; ++v)
+    {
+        if((mask & (1<<v)) == 0)
         {
-            check[i] = 1;
-            luu[k] = luu[k-1] + c[truoc[k-1]][i];
-            truoc[k] = i ;
-            if(k==(n-1))
-            {
-               if(c[i][1]) ans = min(ans,luu[k]+c[i][1]);
-            }
-           else if(luu[k] + cmin*(n-k) < ans ) TSP(k+1);
-           check[i] = 0 ;
+            Travel_Salesman(v, mask | (1<<v));
+            dp[u][mask] = min(dp[u][mask], dist[u][v] + dp[v][mask | (1<<v)]);
         }
     }
-
 }
-void solve() 
+void solve()
 {
-    ll k,j,c0;
-    truoc[0] = 1;
-    cin >> n >> m ;
-    for(int i=1; i<=m; ++i)
+    cin >> n >> m;
+    for(int i=0; i<m; ++i)
     {
-        cin >> k >> j >> c0 ;
-        c[k][j] = c0 ;
-        cmin = min(cmin , c0);
+        ll u,v,w; cin >> u >> v >> w;
+        dist[u][v] = w;
     }
-    TSP(1);
+    memset(dp, -1, sizeof(dp));
+    Travel_Salesman(0, 1);
     cout << ans << endl;
     
-
 }
 int main() 
 {
     FAST_IO;
     // freopen("time.in", "r", stdin); freopen("time.out", "w", stdout);
-    // cin >> tt; while(tt--) {solve();}
-    solve();
+    int tt; cin >> tt; for (int i = 1; i <= tt; i++) {solve();}
+    // solve();
 }

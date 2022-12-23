@@ -38,53 +38,32 @@ typedef vector<string> vs;
 #define sz(s) ((int)(s.size()))
 #define UM uno\nrdered_map
 #define US uno\nrdered_set
-#define forn(i, n) for (int i = 1; i < int(n); i++)
+#define forn(i,a,b) for (int i = (int)a; i < int(b); i++)
+#define forr(i,a,b) for (int i = (int)a; i >= int(b); i--)
 #define fora(i, n) for(auto i:n)
-#define Len 1000005
-const double pi=3.14159265358979323846;
-const int MOD = 1000000007;
-ll tt;
-ll n , m , ans = INT_MAX  ,cmin = INT_MAX;
-ll c[500][500], check[50], luu[50] ,truoc[500];
-void TSP(ll k)
+int dem(int n, int k, int m)
 {
-    for(int i=2; i<=n; ++i)
-    {
-        if(check[i]==0 && c[truoc[k-1]][i]!=0 )
-        {
-            check[i] = 1;
-            luu[k] = luu[k-1] + c[truoc[k-1]][i];
-            truoc[k] = i ;
-            if(k==(n-1))
-            {
-               if(c[i][1]) ans = min(ans,luu[k]+c[i][1]);
-            }
-           else if(luu[k] + cmin*(n-k) < ans ) TSP(k+1);
-           check[i] = 0 ;
-        }
-    }
-
+	if(n == 0) return 1;
+	if(k == 0) return 1;
+	if(n >= pow(m,k)){
+		int val = pow(m,k);
+		return dem(n-val,k,m) + dem(n,k-1,m);
+	}
+	else
+		return dem(n,k-1,m);
+	
 }
-void solve() 
-{
-    ll k,j,c0;
-    truoc[0] = 1;
-    cin >> n >> m ;
-    for(int i=1; i<=m; ++i)
-    {
-        cin >> k >> j >> c0 ;
-        c[k][j] = c0 ;
-        cmin = min(cmin , c0);
-    }
-    TSP(1);
-    cout << ans << endl;
-    
 
+void solve()
+{
+    ll n,k; cin >> n >> k;
+    ll m = log(n)/log(k);
+    cout << dem(n,m,k) << endl;
 }
 int main() 
 {
     FAST_IO;
     // freopen("time.in", "r", stdin); freopen("time.out", "w", stdout);
-    // cin >> tt; while(tt--) {solve();}
-    solve();
+    ll tt; cin >> tt; forn(i,0,tt) {solve();}
+    // solve();
 }
