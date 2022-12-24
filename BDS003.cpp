@@ -16,6 +16,7 @@ typedef vector<vpii> vvpii;
 typedef vector<int> vi;
 typedef vector<int>::iterator ip;
 typedef vector<vi> vvi;
+typedef vector<float> vf;
 typedef vector<vvi> vvvi;
 typedef vector<bool> vb;
 typedef vector<vb> vvb;
@@ -36,29 +37,49 @@ typedef vector<string> vs;
 #define eb emplace_back
 #define ob pop_back
 #define sz(s) ((int)(s.size()))
-#define UM uno\nrdered_map
-#define US uno\nrdered_set
-#define forn(i, n) for (int i = 0; i < int(n); i++)
+#define forn(i,a,b) for (ll i = a; i < b; i++)
+#define forr(i,a,b) for (ll i = a; i >= b; i--)
 #define fora(i, n) for(auto i:n)
-#define Len 1000005
+#define Len 100005
 const double pi=3.14159265358979323846;
 const int MOD = 1000000007;
 ll tt;
+string mult(string a, string b)
+{
+    string res="";
+    int n=a.size();
+    int m=b.size();
+    //create res is the answer
+    res.assign(n+m,'0');
+    for(int i=n-1; i>=0;i--)
+    {
+            for(int j=m-1; j>=0; j--)
+            {
+                int mul=(a[i]-'0')*(b[j]-'0');
+                int p1=i+j, p2=i+j+1;
+                int sum=mul+res[p2]-'0';
+                res[p2]=sum%10+'0';
+                res[p1]+=sum/10;
+            }
+    }
+    while (res[0] == '0' && res.length() > 1)
+    {
+            res.erase(0, 1);
+    }
+    return res;
+    
+}
 ll cal3(ll n, ll k)
 {
-    ll a[n + 1][k + 1];
-    for(ll i=0; i<=n; i++)
+    if(n<k) return 0;
+    if(k==1) return 1;
+    ll cnt = n-1;
+    forn(i,2,k)
     {
-        for(ll j=0; j<min(i,k)+1; j++)
-        {
-            if (j == 0 || j == i)
-                a[i][j] = 1;
-            else
-                a[i][j] = a[i - 1][j - 1] + a[i - 1][j];
-            // cout << a[i][j] << " ";
-        }
+        cnt *= (n-i);
+        cnt /= i;
     }
-    return a[n][k];
+    return cnt;
 }
 void solve() 
 {
@@ -68,7 +89,13 @@ void solve()
         cout << 0 << endl;
         return;
     }
-    cout << cal3(n-1, k-1) << endl;
+    if(k==1)
+    {
+        cout << 1 << endl;
+        return;
+    }
+    else cout << cal3(n,k) << endl;
+    
     
 }
 int main() 
