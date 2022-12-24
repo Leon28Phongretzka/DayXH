@@ -71,13 +71,17 @@ ll power(ll a, ll n)
 }
 ll szn006(ll n, ll m, ll x)
 {
-    // Backtracking numbers way to represent n by sum of prime numbers
-
+    // DP solution to find the number of ways to represent n as sum of m prime numbers
+    ll dp[n + 1][m + 1];
+    memset(dp, 0, sizeof(dp));
+    dp[0][0] = 1;
+    
 
 }
 void solve() 
 {
     ll n; cin >> n;
+    cout << szn006(n) << endl;
 }
 int main() 
 {

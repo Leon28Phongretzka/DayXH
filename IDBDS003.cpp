@@ -44,7 +44,7 @@ typedef vector<string> vs;
 const double pi=3.14159265358979323846;
 const int MOD = 1000000007;
 ll tt;
-ll cal(ll n, ll k)
+ll cal3(ll n, ll k)
 {
     ll a[n + 1][k + 1];
     for(ll i=0; i<=n; i++)
@@ -68,7 +68,7 @@ void solve()
         cout << 0 << endl;
         return;
     }
-    cout << cal(n-1, k-1) << endl;
+    cout << cal3(n-1, k-1) << endl;
     
 }
 int main() 

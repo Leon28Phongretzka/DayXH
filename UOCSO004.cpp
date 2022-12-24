@@ -78,8 +78,6 @@ void solve()
     }
     if(res<t) cout << "YES" << endl;
     else cout << "NO" << endl;
-
-    
 }
 int main() 
 {
